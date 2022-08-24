@@ -1,0 +1,29 @@
+name: Metrics
+on:
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # (optional) Run workflow when pushing on master/main
+  push: {branches: ["main"]} # remove "master" from array
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'Jonas-D-M/Jonas-D-M'" #this isn't really neccesary, but needs testing.
+    steps:
+      - name: Github Metrics
+        if: ${{ success() || failure() }}
+        uses: Jonas-D-M/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: github-metrics.svg
+          config_timezone: Europe/Brussels
+          base: base_indepth, header, activity, community, repositories, metadata
+          plugin_isocalendar: yes
+          plugin_languages: yes
+          plugin_habits: yes
+          plugin_habits_charts: no
+          repositories_forks: no
+          plugin_followup: no
+          plugin_gists: no
+          plugin_lines: no
