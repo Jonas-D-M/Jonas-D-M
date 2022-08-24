@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Github Metrics
         if: ${{ success() || failure() }}
-        uses: Jonas-D-M/metrics@latest
+        uses: Jonas-D-M/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           filename: github-metrics.svg
